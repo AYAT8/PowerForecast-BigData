@@ -1,0 +1,5 @@
+household_id,ts,kwh,quartier
+MAC000002,2012-10-12 00:00:00,0.263,Affluent
+MAC000002,2012-10-12 00:30:00,0.136,Affluent
+MAC000003,2012-10-12 00:00:00,0.451,Comfortable
+MAC000003,2012-10-12 00:30:00,0.389,Comfortable

@@ -1,0 +1,6 @@
+# Évite les erreurs « ^M » dans les conteneurs quand on travaille sous Windows
+*.sh   text eol=lf
+*.py   text eol=lf
+*.yml  text eol=lf
+*.sql  text eol=lf
+Dockerfile text eol=lf

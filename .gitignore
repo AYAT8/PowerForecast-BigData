@@ -1,0 +1,12 @@
+.env
+__pycache__/
+*.pyc
+.venv/
+.idea/
+.vscode/
+.DS_Store
+# données volumineuses : seul l'échantillon est versionné
+data/*
+!data/echantillon.csv
+!data/README.md
+*.parquet
