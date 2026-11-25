@@ -14,11 +14,13 @@ Prévoir au moins **8 Go de RAM** alloués à Docker. Première construction : p
 | Service | URL | Identifiants |
 |---|---|---|
 | MinIO (Data Lake) | http://localhost:9001 | `.env` |
-| Spark Master | http://localhost:8080 | — |
+| Spark Master | http://localhost:8080 (ou `SPARK_UI_PORT`) | — |
 | Airflow | http://localhost:8081 | `.env` |
 | Superset | http://localhost:8088 | `.env` |
 | PostgreSQL | localhost:5432 (base `conso`) | `.env` |
 | Kafka (depuis le PC) | localhost:29092 | — |
+
+Port déjà utilisé sur votre PC (erreur « port is already allocated ») : pour Spark, mettez par exemple `SPARK_UI_PORT=8082` dans `.env`.
 
 ## Parcours d'une donnée
 1. `producer` lit `data/echantillon.csv` et envoie les relevés dans le topic `releves_compteurs`.
