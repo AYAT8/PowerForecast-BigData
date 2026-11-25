@@ -22,6 +22,23 @@ MSYS_NO_PATHCONV=1 docker compose exec spark-master /opt/spark/bin/spark-submit 
 
 Pour tester sans toucher aux vraies données, ajouter par exemple `-e SILVER_PATH=s3a://silver/releves_test` après `exec`.
 
+## Job `silver_to_gold.py`
+
+Lit la table Hudi Silver (`SILVER_PATH`) et calcule, par foyer, quartier et jour, la consommation totale,
+le pic sur une demi-heure et le nombre de relevés. Écrit le résultat en Parquet (`GOLD_PATH`) et remplace
+le contenu de la table PostgreSQL `gold_conso_foyer_jour`. Un quartier manquant devient `inconnu`.
+Si Silver est introuvable ou vide, le job s'arrête en erreur.
+
+```powershell
+docker compose exec -e SILVER_PATH=s3a://silver/releves_factice -e GOLD_PATH=s3a://gold/conso_foyer_jour_factice spark-master /opt/spark/bin/spark-submit --master spark://spark-master:7077 /jobs/silver_to_gold.py
+```
+
+```bash
+MSYS_NO_PATHCONV=1 docker compose exec -e SILVER_PATH=s3a://silver/releves_factice -e GOLD_PATH=s3a://gold/conso_foyer_jour_factice spark-master /opt/spark/bin/spark-submit --master spark://spark-master:7077 /jobs/silver_to_gold.py
+```
+
+Sur le jeu de test (60 foyers, 60 jours) : `Gold écrit : 3600 lignes`, 48 relevés par foyer et par jour.
+
 ## Variables d'environnement
 
 | Variable | Rôle | Défaut |
