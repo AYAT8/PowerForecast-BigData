@@ -1,3 +1,4 @@
+
 """E1 - Préparation des données Smart Meters in London."""
 
 import argparse
@@ -21,6 +22,9 @@ p.add_argument("--end", default="2012-12-31")
 p.add_argument("--out", default="data/echantillon.csv")
 
 a = p.parse_args()
+
+if a.n is not None and a.n <= 0:
+    raise ValueError("--n doit être un nombre positif.")
 
 random.seed(42)
 CHUNK_SIZE = 50000
@@ -87,10 +91,10 @@ for file in files:
             ["household_id", "ts", "kwh"]
         ]
 
-        total_valid += len(chunk)
-
         # MODE COMPLET : conserver toutes les lignes
         if a.n is None:
+
+            total_valid += len(chunk)
 
             chunk.to_csv(
                 a.out,
@@ -103,6 +107,8 @@ for file in files:
         else:
 
             for record in chunk.to_dict("records"):
+
+                total_valid += 1
 
                 if len(reservoir) < a.n:
                     reservoir.append(record)
